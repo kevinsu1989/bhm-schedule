@@ -1,0 +1,189 @@
+
+<div>
+    <textarea id="tmpl-main">
+        <div class="ui grid">
+            <div class="three wide column">
+                <main-left-menu></main-left-menu>
+            </div>
+            <div class="thirteen wide column">
+                <main-top-menu></main-top-menu>
+                <main-charts-container></main-charts-container>
+            </div>
+            <div class="loading sixteen wide column" ng-show="loading">
+                
+            </div>
+            <div class="loading-gif" ng-show="loading">
+                <img src="/img/loading.gif">
+            </div>
+        </div>
+    </textarea>
+
+    <textarea id="tmpl-main-left-menu">
+        <div class="ui vertical menu">
+            <div class="parent" ng-repeat="page in pages">
+                <a class="teal item" ng-if="page.children.length==0" ng-class="page.page_name==page_name?'active':''" ng-click="pageChange(page)">{{page.page_name}}</a>
+
+
+                <div class="ui dropdown item" ng-if="page.children.length>0" ng-mouseover="showItems(page,true)" ng-mouseout="showItems(page,false)">
+                    <i class="dropdown icon"></i>
+                    {{page.page_name}}
+                    <div class="menu" ng-class="page.show_items==true?'show':'hide'" >
+                        <a class="item" ng-click="pageChange(page)">全部</a>
+                        <a ng-repeat="child in page.children" class="item" ng-click="pageChange(child)">{{child.page_name}}</a>
+                    </div>
+                </div>
+
+        
+                <!-- <a ng-repeat="child in page.children" class="teal item child" ng-class="child.page_name==page_name?'active':''" ng-click="pageChange(child)">{{child.page_name}}</a> -->
+                
+            </div>
+        </div>
+    </textarea>
+
+    <textarea id="tmpl-main-top-menu">
+        <div class="ui form">
+            <div class="five fields">
+                <div class="field">
+                    <select ng-change="reload(0)" ng-model="timeSelect" class="ui dropdown" name="card[expire-time]">
+                        <option ng-selected="true" value="today">今天</option>
+                        <option value="yestoday">昨天</option>
+                        <option value="week">本周</option>
+                        <option value="lastweek">上周</option>
+                        <option value="month">本月</option>
+                        <option value="lastmonth">上月</option>
+                        <option value="30">30分钟内</option>
+                        <option value="180">3小时内</option>
+                        <option value="720">12小时内</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <select ng-change="reload()" ng-model="browser_name" class="ui dropdown" name="card[expire-browser]">
+                        <option ng-selected="true" value="">全部浏览器</option>
+                        <option value="chrome">chrome</option>
+                        <option value="ie">ie</option>
+<!--                         <option value="firefox">firefox</option>
+                        <option value="safari">safari</option> -->
+                    </select>
+                </div>
+                <div class="field">
+                    <select ng-change="reload()" ng-model="type" class="ui dropdown" name="card[expire-browser]">
+                        <option ng-selected="true" value="hour">按小时统计</option>
+                        <option value="day">按天统计</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <input type="text" ng-model="time_start" placeholder="开始时间" datetype="datetime" datetype="date" datetime-picker format="yyyy/mm/dd hh:ii"/>
+                </div>
+                <div class="field">
+                    <input type="text" ng-model="time_end" placeholder="结束时间" datetype="datetime" datetype="date" datetime-picker format="yyyy/mm/dd hh:ii">
+                </div>
+                <div class="field">
+                    <button class="ui primary button" ng-click="reload(1)">统计</button>
+                    <button class="ui primary button" ng-click="showTable()">表格</button>
+                </div>
+
+            </div>
+
+            <div class="five fields" ng-show='false'>
+                <div class="fild">
+                    <div class="ui toggle checkbox">
+                      <input ng-model="isAuto" ng-change="autoLoad()" type="checkbox" name="public">
+                      <label>自动刷新</label>
+                    </div>
+                    <div class="ui toggle checkbox">
+                      <input ng-model="isSpeed" ng-change="speedLoad()" type="checkbox" name="public">
+                      <label>快速查询</label>
+                    </div>
+                </div>
+            </div>
+            <main-top-info></main-top-info>
+        </div>
+
+    </textarea>
+
+    <textarea id="tmpl-main-charts-container">
+
+        <div>
+            <div class="chart bar-chart" bar-chart data-title="【{{page_name}}】的平均性能指标"></div>
+            <div class="chart child-chart" gauge-chart data-title="播放器加载成功率"></div>
+            <div class="chart child-chart" pie-chart data-title="浏览器占比"></div>
+            <div class="chart main-chart" main-chart></div>
+            <div class="chart child-chart" child-chart data-cntitle="PV" data-title="pv"></div>
+            <div class="chart child-chart" child-chart data-cntitle="播放器加载成功率" data-title="flash_percent"></div>
+            <div class="chart child-chart long" line-piled-chart data-title="浏览器占比"></div>
+            <div class="chart child-chart" child-chart data-cntitle="JS加载成功率" data-title="js_load"></div>
+            <records-table></records-table>
+<!--             <div class="chart child-chart" child-chart data-cntitle="完全加载" data-title="load_time"></div>
+            <div class="chart child-chart" child-chart data-cntitle="首屏时间" data-title="first_view"></div>
+            <div class="chart child-chart" child-chart data-cntitle="白屏时间" data-title="first_paint"></div>
+            <div class="chart child-chart" child-chart data-cntitle="页面解析" data-title="dom_ready"></div> -->
+        </div>
+
+    </textarea>
+
+    <textarea id="tmpl-data-table">
+        <div class="table-container" ng-show="show" ng-click="hideTable()">
+            <div class="records-table-container">
+                <table class="records-table">
+                    <tr>
+                        <th>时间</th><th>白屏时间</th><th>页面解析</th><th>首屏时间</th><th>完全加载</th><th>IE占比</th><th>Chrome占比</th><th>播放器加载</th><th>JS加载</th><!-- <th>PV</th> -->
+                    </tr>
+                    <tr ng-repeat="item in data">
+                        <td ng-if="item.result.type=='day'">{{item.time_start|date: 'MM月dd日'}}</td>
+                        <td ng-if="item.result.type=='hour'">{{item.time_start|date: 'MM月dd日HH时'}}</td>
+                        <td>{{item.result.first_paint}}ms</td>
+                        <td>{{item.result.dom_ready}}ms</td>
+                        <td>{{item.result.first_view}}ms</td>
+                        <td>{{item.result.load_time}}ms</td>
+                        <td>{{item.result.iepv/item.result.pv|perFilter}}</td>
+                        <td>{{item.result.chromepv/item.result.pv|perFilter}}</td>
+                        <td>{{item.result.flash_percent|perFilter}}</td>
+                        <td>{{item.result.js_load|perFilter}}</td>
+                        <!-- <td>{{item.result.pv}}00</td> -->
+                    </tr>
+                </table>
+            </div>
+            <div class="table-background">
+                
+            </div>
+        </div>
+        
+    </textarea>
+
+    <textarea id="tmpl-main-top-info">
+        <div class="ui horizontal list" ng-show='false'>
+            <div class="item">
+                【{{page_name}}】的平均性能指标：
+            </div>
+            <div class="item">
+                白屏时间：{{records.first_paint|msFilter}}ms
+            </div>
+            <div class="item">
+                页面解析：{{records.dom_ready|msFilter}}ms
+            </div>
+            <div class="item">
+                首屏时间：{{records.first_view|msFilter}}ms
+            </div>
+            <div class="item">
+                完全加载：{{records.load_time|msFilter}}ms
+            </div>
+            <div class="item" ng-if="records.flash_load > 0">
+                FLASH加载成功率：{{records.flash_load|perFilter}}
+            </div>
+        </div>
+        
+    </textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

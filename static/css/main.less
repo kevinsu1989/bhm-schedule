@@ -1,0 +1,251 @@
+.custom-realtime{
+  background-color: #f3f3f3;
+  width: 100%;
+  height: 700px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.custom-agent-status{
+  li{
+    float: left;
+    padding: 0 !important;
+//    margin: 0 10px !important;
+
+    i{
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+    }
+    label{
+      vertical-align: middle;
+    }
+  }
+}
+
+.custom-stream{
+  height: 680px;
+  overflow: auto;
+}
+
+.custom-message{
+  margin-bottom: 0 !important;
+//  width: 50%;
+//  position: absolute !important;
+//  margin-left: 25% !important;
+}
+
+.custom-left-padding{
+  padding-left: 6px !important;
+}
+
+.custom-release-project-list{
+  .buttons{
+    display: none;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  td{
+    position: relative;
+  }
+  
+  tr:hover{
+    .buttons{
+      display: block;
+    }
+  }
+}
+
+.menu .active{
+  color: #3b83c0 !important;
+}
+
+.custom-no-padding{
+  padding: 0 !important;
+}
+
+.custom-active-task{
+
+  tbody tr:nth-child(2){
+    td{
+      border-top: none !important;
+    }
+  }
+
+  .button{
+    background-color: transparent;
+    margin-top: -10px;
+    visibility: hidden;
+
+    &:hover{
+      background-color: transparent;
+    }
+  }
+
+  tr.custom-unlock{;
+    color: red;
+
+    .button{
+      visibility: visible;
+    }
+  }
+
+  tr:hover .button{
+    visibility: visible;
+  }
+}
+
+.custom-member{
+  color: red;
+}
+
+.custom-full-time{
+  min-width: 140px;
+  width: 140px;
+}
+
+.custom-project-preview-row:nth-child(odd){
+  background-color: #f7f7f7;
+}
+
+@media screen and (max-width: 1280px) {
+  .custom-message{
+    display: none;
+  }
+}
+
+
+.custom-deploy-time{
+  min-width: 130px;
+}
+
+.chart{
+  &.main-chart{
+    width: 75%;
+    height: 400px;
+    float: left;
+  }
+  &.child-chart{
+    width: 25%;
+    height: 200px;
+    float: left;
+    &.long{
+      width: 75%;
+    }
+  }
+  &.bar-chart{
+    width: 50%;
+    height: 200px;
+    float: left;
+  }
+}
+
+.loading{
+  z-index: 9998;
+  background: #000;
+  opacity: 0.2;    
+  position: absolute !important;
+  z-index: 9999;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+}
+
+.loading-gif{
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: auto;
+}
+// body{
+//   background-image:radial-gradient(farthest-side ellipse at 10% 0,rgba(119,157,207,.8) 30%,rgba(174,180,186,.8) 76%,rgba(199,175,156,.8));
+// }
+
+// input, select{
+//   background-image: radial-gradient(farthest-side ellipse at 10% 0, rgba(119,157,207,0.8) 30%, rgba(174,180,186,0.8) 150%, rgba(199,175,156,0.8)) !important;
+// }
+
+// .ui.menu a.item{ 
+//   background-image: radial-gradient(farthest-side ellipse at 10% 0, rgba(119,157,207,0.8) 150%, rgba(174,180,186,0.8) 150%, rgba(199,175,156,0.8)) !important;
+//   &.active{
+//     background-image: radial-gradient(farthest-side ellipse at 10% 0, rgba(119,157,207,0.8) 50%, rgba(174,180,186,0.8) 150%, rgba(199,175,156,0.8)) !important;
+//   }
+// }
+.teal.item.child{
+  padding-left: 30px;
+}
+.parent .teal.item{
+  border-bottom: 1px solid #eee;
+}
+.ui.menu .parent .teal.item.active{
+  border-color: #eee !important;
+}
+.table-container{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  .records-table-container{  
+      position: absolute;
+      max-height: 80%;
+      width: auto;
+      left: 30%;
+      top: 10%;
+      overflow-y: scroll; 
+      z-index: 99;
+    .records-table{
+      background: #fff;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      overflow-y: scroll;
+      tr{
+        td,th{
+          width: 100px;
+          height: 35px;
+          text-align: center;
+          border-right: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+        }
+        th{
+          background: #f0f0f0
+        }
+        td:first-child{
+          background: #fafafa
+        }
+      }
+      tr:nth-child(even){
+        background: #fafafa
+      }
+    }
+
+  }
+
+  .table-background{
+    background: #000;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+  }
+
+
+}
+
+.ui.dropdown .menu{
+  &.show{
+    display: block !important;
+  }
+  &.hide{
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
