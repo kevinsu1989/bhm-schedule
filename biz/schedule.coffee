@@ -126,23 +126,23 @@ exports.initMSchedule = ()->
   rule_hour.minute = 2
 
 
-  # day = _schedule.scheduleJob rule_day, ()->
-  #   time_start = _moment().subtract(1,'day').startOf('day').valueOf()
-  #   time_end = _moment().startOf('day').valueOf()
-  #   _mrecords.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
+  day = _schedule.scheduleJob rule_day, ()->
+    time_start = _moment().subtract(1,'day').startOf('day').valueOf()
+    time_end = _moment().startOf('day').valueOf()
+    _mrecords.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
 
 
 
 
-  # hour = _schedule.scheduleJob rule_hour, ()->
-  #   time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
-  #   time_end = _moment().startOf('hour').valueOf()
-  #   _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+  hour = _schedule.scheduleJob rule_hour, ()->
+    time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
+    time_end = _moment().startOf('hour').valueOf()
+    _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 
-  time_start = _moment().startOf('day').valueOf()
-  time_end = _moment().startOf('hour').valueOf()
-  _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+  # time_start = _moment().startOf('day').valueOf()
+  # time_end = _moment().startOf('hour').valueOf()
+  # _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 
 
