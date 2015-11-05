@@ -51,7 +51,7 @@ class Records extends _BaseEntity
   # 查询播放器JS加载成功率
   getJsLoad: (data, cb)->
     sql = "select js_load,count(*) as count from (select case when flash_js_load_start is not null then 1 else 0 end as js_load from records 
-        where first_paint>0 and flash_installed=1 and cli_version='1.0.1' and timestamp > #{data.time_start} and timestamp < #{data.time_end} "
+        where flash_installed=1 and cli_version='1.0.3' and timestamp > #{data.time_start} and timestamp < #{data.time_end} "
 
     sql += " and browser_name='#{data.browser_name}' " if data.browser_name
 

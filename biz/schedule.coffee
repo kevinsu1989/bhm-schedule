@@ -114,6 +114,10 @@ exports.initSchedule = ()->
       _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
     , 15 * 1000)
 
+    
+  # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
+  # time_end = _moment().startOf('hour').valueOf()
+  # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 
 exports.initMSchedule = ()->
