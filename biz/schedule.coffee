@@ -1,5 +1,6 @@
 _schedule = require 'node-schedule'
 _records = require './records'
+_mrecords = require './m_records'
 _browser = require './browser'
 _api = require './api'
 _moment = require 'moment'
@@ -60,7 +61,6 @@ sendMsg = (records)->
     env: 'dev',
     maxBuffer: 20 * 1024 * 1024
 
-
   exec = _child.exec(command, options);
 
 exports.initReportSchedule = ()->
@@ -113,5 +113,44 @@ exports.initSchedule = ()->
     setTimeout(()->
       _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
     , 15 * 1000)
+
+
+
+exports.initMSchedule = ()->
+  rule_day = new _schedule.RecurrenceRule()
+  rule_hour = new _schedule.RecurrenceRule()
+
+  rule_day.hour = 3
+  rule_day.minute = 15
+
+  rule_hour.minute = 2
+
+
+  # day = _schedule.scheduleJob rule_day, ()->
+  #   time_start = _moment().subtract(1,'day').startOf('day').valueOf()
+  #   time_end = _moment().startOf('day').valueOf()
+  #   _mrecords.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
+
+
+
+
+  # hour = _schedule.scheduleJob rule_hour, ()->
+  #   time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
+  #   time_end = _moment().startOf('hour').valueOf()
+  #   _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+
+
+  time_start = _moment().startOf('day').valueOf()
+  time_end = _moment().startOf('hour').valueOf()
+  _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+
+
+
+
+
+
+
+
+
 
  
