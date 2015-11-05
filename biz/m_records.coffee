@@ -49,3 +49,15 @@ exports.calculateRecordsByTime = (timeStart, timeEnd, timeType)->
           calculateByTime time, (err, result)->
       , index * 10 * 1000)
     )(time)
+
+
+
+
+
+
+exports.getMRecords = (req, res, cb)->
+  query = req.query
+
+  _entity.m_records_calculated.findRecords query, (err, result)->
+
+    cb err, result

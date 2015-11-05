@@ -1,21 +1,20 @@
-
 exports.schema =
   name: 'm_records_calculated'
 
   fields:
-  	# 客户端ip
+    # pv
     pv: 'integer'
-    # 上报时间
+    # detail
     detail: 'integer'
-    # 节目id
+    # source
     source: 'integer'
-    # url
+    # vv
     vv: 'integer'
-    # ua
+    # app
     app: 'integer'
-    # 客户端时间
+    # 开始时间
     time_start: 'bigInteger'
-    # 客户端时间
+    # 结束时间
     time_end: 'bigInteger'
-    # 客户端时间
+    # 时间类型
     time_type: ''

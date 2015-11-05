@@ -32,28 +32,41 @@ report = ()->
         done null
     )
     ()->
-      sendMsg list
+      text = ""
+      for record in records
+        text += "
+           【#{record.page_name}】\\n
+            播放器加载成功率：#{Math.round(record.flash_percent*10000)/100}%,\\n
+            白屏时间：#{record.first_paint}ms,
+            页面解析：#{record.dom_ready}ms,
+            首屏时间：#{record.first_view}ms,
+            完全加载：#{record.load_time}ms。\\n
+        "
+      sendMsg '今日主站数据', text
   )
 
-  # _api.getRecordsSplit req, null, (err, result)->
-  #   # console.log result.records[0]
-  #   sendMsg(result.records[0].result)
+
+reportM = ()->
+  req = 
+    query:
+      time_start: _moment().subtract(1,'day').startOf('day').valueOf()
+      time_end: _moment().startOf('day').valueOf() - 1
+      type: 'day'
+
+    
+  _mrecords.getMRecords req, null, (err, result)->
+    console.log result
+    text = "资源加载成功率：#{Math.round(result[0].detail/result[0].pv*10000)/100}%\\n"
+    text += "PV-VV转化率：#{Math.round((result[0].vv*1 + result[0].app*1)/result[0].pv*10000)/100}%\\n"
+    text += "PV-APP转化率：#{Math.round(result[0].app/result[0].pv*10000)/100}%"
+    sendMsg '今日M站数据', text
 
 
 
-sendMsg = (records)->
-  text = ""
-  for record in records
-	  text += "
-	     【#{record.page_name}】\\n
-	      播放器加载成功率：#{Math.round(record.flash_percent*10000)/100}%,\\n
-	      白屏时间：#{record.first_paint}ms,
-	      页面解析：#{record.dom_ready}ms,
-	      首屏时间：#{record.first_view}ms,
-	      完全加载：#{record.load_time}ms。\\n
-	  "
+sendMsg = (title, text)->
 
-  send_options = "{\"text\":\"昨日数据\",\"attachments\":[{\"title\":\"\",\"text\":\"#{text}\",\"color\":\"#ffa500\"}]}"
+
+  send_options = "{\"text\":\"#{title}\",\"attachments\":[{\"title\":\"\",\"text\":\"#{text}\",\"color\":\"#ffa500\"}]}"
 
   command = "curl -H \"Content-Type: application/json\" -d '"+send_options+"' \"https://hook.bearychat.com/=bw7by/incoming/088146355989e6687d1d3b35acd608de\" ";
 
@@ -69,8 +82,10 @@ exports.initReportSchedule = ()->
 
   rule_day.hour = 10
   rule_day.minute = 0
-  # report()
-  day = _schedule.scheduleJob rule_day, report
+  # reportM()
+  day = _schedule.scheduleJob rule_day, ()->
+    report()
+    reportM()
 
 
 
@@ -114,7 +129,7 @@ exports.initSchedule = ()->
       _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
     , 15 * 1000)
 
-    
+
   # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
   # time_end = _moment().startOf('hour').valueOf()
   # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
