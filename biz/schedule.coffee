@@ -28,7 +28,6 @@ report = ()->
       page = pages[index++]
       req.params.page_name = page
       _api.getRecordsSplit req, null, (err, result)->
-        console.log result
         list.push result.records[0].result
         done null
     )
@@ -56,7 +55,6 @@ reportM = ()->
 
     
   _mrecords.getMRecords req, null, (err, result)->
-    console.log result
     text = "资源加载成功率：#{Math.round(result[0].detail/result[0].pv*10000)/100}%\\n"
     text += "PV-VV转化率：#{Math.round((result[0].vv*1 + result[0].app*1)/result[0].pv*10000)/100}%\\n"
     text += "PV-APP转化率：#{Math.round(result[0].app/result[0].pv*10000)/100}%"
@@ -93,17 +91,9 @@ exports.initReportSchedule = ()->
 
 
 exports.initSchedule = ()->
-  console.log 123
-  # time_start = _moment().subtract(1,'day').startOf('day').valueOf()
-  # time_end = _moment().startOf('day').valueOf()
-  # _browser.calculateBrowserRecords time_start, time_end, 'day', (err, result)->
-  # setTimeout(()->
-  #   _records.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
-  # , 30 * 1000)
   rule_backup = new _schedule.RecurrenceRule()
   rule_day = new _schedule.RecurrenceRule()
   rule_hour = new _schedule.RecurrenceRule()
-
 
   rule_day.dayOfWeek = [new _schedule.Range(0, 6)]
   rule_day.hour = 3
@@ -136,18 +126,6 @@ exports.initSchedule = ()->
       _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
     , 15 * 1000)
 
-  # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
-  # time_end = _moment().startOf('hour').valueOf()
-  # _browser.calculateBrowserRecords time_start, time_end, 'hour', (err, result)->
-  # setTimeout(()->
-  #   _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
-  # , 15 * 1000)
-  # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
-  # time_end = _moment().startOf('hour').valueOf()
-  # _browser.calculateBrowserRecords 1446714000000, 1446721200000, 'hour', (err, result)->
-
-
-
 
 exports.initMSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
@@ -158,24 +136,16 @@ exports.initMSchedule = ()->
 
   rule_hour.minute = 2
 
-
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()
     time_end = _moment().startOf('day').valueOf()
     _mrecords.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
-
-
-
 
   hour = _schedule.scheduleJob rule_hour, ()->
     time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     time_end = _moment().startOf('hour').valueOf()
     _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
-
-  # time_start = _moment().startOf('day').valueOf()
-  # time_end = _moment().startOf('hour').valueOf()
-  # _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 
 
