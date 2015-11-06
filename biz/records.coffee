@@ -18,13 +18,14 @@ calculateByTime = (time, page, browser_name, cb)->
       time_start: time.timeStart,
       time_end: time.timeEnd,
       timeStep: time.timeStep,
-      page_like: page.page_like
+      page_like: page.page_like,
     },
     params:{
       page_name: page.page_name
     }
   } 
   req.query.isSpeed = time.isSpeed if time.isSpeed
+  req.query.type = 'hour' if time.isSpeed
   
   req.query.browser_name = browser_name if browser_name
   queue = []

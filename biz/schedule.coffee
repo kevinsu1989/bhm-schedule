@@ -28,12 +28,13 @@ report = ()->
       page = pages[index++]
       req.params.page_name = page
       _api.getRecordsSplit req, null, (err, result)->
+        console.log result
         list.push result.records[0].result
         done null
     )
     ()->
       text = ""
-      for record in records
+      for record in list
         text += "
            【#{record.page_name}】\\n
             播放器加载成功率：#{Math.round(record.flash_percent*10000)/100}%,\\n
@@ -42,7 +43,7 @@ report = ()->
             首屏时间：#{record.first_view}ms,
             完全加载：#{record.load_time}ms。\\n
         "
-      sendMsg '今日主站数据', text
+      sendMsg '昨日主站数据', text
   )
 
 
@@ -59,7 +60,7 @@ reportM = ()->
     text = "资源加载成功率：#{Math.round(result[0].detail/result[0].pv*10000)/100}%\\n"
     text += "PV-VV转化率：#{Math.round((result[0].vv*1 + result[0].app*1)/result[0].pv*10000)/100}%\\n"
     text += "PV-APP转化率：#{Math.round(result[0].app/result[0].pv*10000)/100}%"
-    sendMsg '今日M站数据', text
+    sendMsg '昨日M站数据', text
 
 
 
@@ -77,12 +78,14 @@ sendMsg = (title, text)->
   exec = _child.exec(command, options);
 
 exports.initReportSchedule = ()->
-
+  time_start = _moment().subtract(1,'day').startOf('day').valueOf()
+  time_end = _moment().startOf('day').valueOf()
+  _records.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
   rule_day = new _schedule.RecurrenceRule()
 
   rule_day.hour = 10
   rule_day.minute = 0
-  # reportM()
+  # report()
   day = _schedule.scheduleJob rule_day, ()->
     report()
     reportM()
@@ -93,6 +96,13 @@ exports.initReportSchedule = ()->
 
 
 exports.initSchedule = ()->
+  console.log 123
+  # time_start = _moment().subtract(1,'day').startOf('day').valueOf()
+  # time_end = _moment().startOf('day').valueOf()
+  # _browser.calculateBrowserRecords time_start, time_end, 'day', (err, result)->
+  # setTimeout(()->
+  #   _records.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
+  # , 30 * 1000)
   rule_backup = new _schedule.RecurrenceRule()
   rule_day = new _schedule.RecurrenceRule()
   rule_hour = new _schedule.RecurrenceRule()
@@ -129,10 +139,17 @@ exports.initSchedule = ()->
       _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
     , 15 * 1000)
 
-
   # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
   # time_end = _moment().startOf('hour').valueOf()
-  # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+  # _browser.calculateBrowserRecords time_start, time_end, 'hour', (err, result)->
+  # setTimeout(()->
+  #   _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+  # , 15 * 1000)
+  # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
+  # time_end = _moment().startOf('hour').valueOf()
+  # _browser.calculateBrowserRecords 1446714000000, 1446721200000, 'hour', (err, result)->
+
+
 
 
 exports.initMSchedule = ()->

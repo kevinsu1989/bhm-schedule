@@ -42,8 +42,8 @@ module.exports = (app)->
   require('./router').init(app)
   initBijou app
   # _api.getIp()
-  # _schedule.initSchedule()
-  # _schedule.initMSchedule()
+  _schedule.initSchedule()
+  _schedule.initMSchedule()
   _schedule.initReportSchedule()
   # _records.calculateRecordsByTime 1446447600000, 1446451200000, 'hour', (err, result)->
   # _browser.calculateBrowserRecords 1446429600000, 1446451200000, 'hour', (err, result)->
