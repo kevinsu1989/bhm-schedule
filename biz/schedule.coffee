@@ -78,9 +78,6 @@ sendMsg = (title, text)->
   exec = _child.exec(command, options);
 
 exports.initReportSchedule = ()->
-  time_start = _moment().subtract(1,'day').startOf('day').valueOf()
-  time_end = _moment().startOf('day').valueOf()
-  _records.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
   rule_day = new _schedule.RecurrenceRule()
 
   rule_day.hour = 10
