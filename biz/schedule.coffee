@@ -9,7 +9,7 @@ _async = require 'async'
 
 
 report = ()->
-  pages = ['首页','完美假期-首页','底层', '电视剧', '综艺']
+  pages = ['首页', '底层', '电视剧', '综艺']
   req = 
     query:{
       time_start: _moment().subtract(1,'day').startOf('day').valueOf()
@@ -28,15 +28,16 @@ report = ()->
       page = pages[index++]
       req.params.page_name = page
       _api.getRecordsSplit req, null, (err, result)->
+        console.log result
         list.push result.records[0].result
         done null
     )
     ()->
       text = ""
       for record in list
-        text += "
-           【#{record.page_name}】\\n
-            播放器加载成功率：#{Math.round(record.flash_percent*10000)/100}%,\\n
+        text += "【#{record.page_name}】\\n"
+        text += "播放器加载成功率：#{Math.round(record.flash_percent*10000)/100}%,\\n" if record.flash_percent > 0
+        text +="
             白屏时间：#{record.first_paint}ms,
             页面解析：#{record.dom_ready}ms,
             首屏时间：#{record.first_view}ms,
@@ -80,7 +81,7 @@ exports.initReportSchedule = ()->
 
   rule_day.hour = 10
   rule_day.minute = 0
-  # report()
+  report()
   day = _schedule.scheduleJob rule_day, ()->
     report()
     reportM()
@@ -103,7 +104,7 @@ exports.initSchedule = ()->
   rule_backup.hour = 3
   rule_backup.minute = 30
 
-  rule_hour.minute = 5
+  rule_hour.minute = 18
 
   # backup = _schedule.scheduleJob rule_backup, ()->
   #   _records.backUpRecords (err, result)->

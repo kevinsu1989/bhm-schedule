@@ -6,6 +6,9 @@ _ = require 'lodash'
 _config = require './config' 
 _schedule = require './biz/schedule'
 
+_records = require './biz/records'
+_mrecords = require './biz/m_records'
+_browser = require './biz/browser'
 
 #初始化bijou
 initBijou = (app)->
@@ -26,14 +29,9 @@ initBijou = (app)->
       _bijou.scanSchema schema, done
   )
 
-
   _async.waterfall queue, (err)->
     console.log err if err
-    console.log 'Monitor Front is running now!'
-
-
-
-
+    console.log 'BHM Schedule is running now!'
 
   
 
@@ -42,14 +40,18 @@ module.exports = (app)->
   require('./router').init(app)
   initBijou app
   # _api.getIp()
-  console.log process.env.NODE_ENV 
   if process.env.NODE_ENV is 'production'
     _schedule.initSchedule()
     _schedule.initMSchedule()
     _schedule.initReportSchedule()
-  # _records.calculateRecordsByTime 1446447600000, 1446451200000, 'hour', (err, result)->
-  # _browser.calculateBrowserRecords 1446429600000, 1446451200000, 'hour', (err, result)->
+  else
+    # _schedule.initReportSchedule()
+    console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
 
+  # _records.calculateRecordsByTime 1447430400000, 1447516800000, 'day', (err, result)->
+  # _browser.calculateBrowserRecords 1447988400000, 1447999200000, 'hour', (err, result)->
+
+  # _mrecords.calculateRecordsByTime 1447603200000, 1447689600000, 'day', (err, result)->
 
 
 

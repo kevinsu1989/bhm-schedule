@@ -29,6 +29,8 @@ class Records extends _BaseEntity
 
     sql += " and browser_name='#{data.browser_name}'" if data.browser_name
 
+    sql += " order by a.timestamp"
+
     console.log sql
     
     @execute sql, cb
@@ -45,13 +47,14 @@ class Records extends _BaseEntity
     sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
 
     sql += " group by flash_load order by flash_load "
+
     console.log sql
     @execute sql, cb
 
   # 查询播放器JS加载成功率
   getJsLoad: (data, cb)->
     sql = "select js_load,count(*) as count from (select case when flash_js_load_start is not null then 1 else 0 end as js_load from records 
-        where flash_installed=1 and cli_version='1.0.3' and timestamp > #{data.time_start} and timestamp < #{data.time_end} "
+        where flash_installed=1 and cli_version in ('1.0.3','1.0.4','1.0.5') and timestamp > #{data.time_start} and timestamp < #{data.time_end} "
 
     sql += " and browser_name='#{data.browser_name}' " if data.browser_name
 
@@ -65,6 +68,23 @@ class Records extends _BaseEntity
 
     @execute sql, cb
 
+
+  # 查询pv数据    
+  findPVRecords: (data, cb)->
+    sql = "select count(*) as pv from records_pv  where 
+    timestamp > #{data.time_start} and timestamp < #{data.time_end} "
+
+    sql += " and page_name='#{data.page_name}'" if !data.page_like
+
+    sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
+
+    sql += " and browser_name='#{data.browser_name}'" if data.browser_name
+
+    sql += " order by timestamp"
+
+    console.log sql
+    
+    @execute sql, cb
     
   # 查询将要备份的记录
   findRecordsToBackUp: (timeStart, timeEnd,cb)->
@@ -80,7 +100,7 @@ class Records extends _BaseEntity
 
   # 浏览器占比
   browserPercent: (data, cb)->
-    sql = "select browser_name as name, count(*) as value from records a where 
+    sql = "select browser_name as name, count(*) as value from records_pv a where 
     a.timestamp > #{data.time_start} and a.timestamp < #{data.time_end} "
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like

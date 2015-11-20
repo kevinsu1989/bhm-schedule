@@ -245,15 +245,17 @@ exports.getRecordsSplit = (req, res, cb)->
     )
 
     queue.push((records, data, done)->
+      _entity.records.findPVRecords data, (err, result)->
+        pv_count = ~~result[0]?.pv
+        done null, records, data
+    )
+
+    queue.push((records, data, done)->
       _entity.records.browserPercent data, (err, result)->
         done null, records, result
     )
 
-
-
-
   _async.waterfall queue,(err, records, browser)->
-    console.log records
     cb err, getReturns(records, browser, pv_count, pv_cal, flash_load, flash_count, js_load, js_count)
 
 

@@ -48,13 +48,16 @@ calculateByTime = (time, page, browser_name, cb)->
         load_time: result.load_time,
         flash_percent: result.flash_load,
         pv: result.pv,
-        pv_cal: result.records[0].result.pv_cal,
         page_name: page.page_name,
         flash_count: result.flash_count,
         js_load: result.js_load,
         js_count: result.js_count,
         type: time.timeType
       }
+      if result.records[0]
+        record.pv_cal = result.records[0].result.pv_cal
+      else
+        record.pv_cal = 0
       record.browser_name = browser_name if browser_name
       console.log record
       _entity.records_calculated.saveCalculatedRecords [record], done
@@ -115,7 +118,6 @@ exports.calculateRecordsByTime = (timeStart, timeEnd, timeType)->
 
 
 
-      
   
 
 exports.backUpRecords = ()->
