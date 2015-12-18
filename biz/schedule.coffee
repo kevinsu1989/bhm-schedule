@@ -157,7 +157,9 @@ exports.initPlayerSchedule = ()->
   rule_day.hour = 3
   rule_day.minute = 15
 
-  rule_hour.minute = 2
+  rule_hour.minute = 9
+
+  console.log 123
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()
@@ -167,6 +169,7 @@ exports.initPlayerSchedule = ()->
   hour = _schedule.scheduleJob rule_hour, ()->
     time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     time_end = _moment().startOf('hour').valueOf()
+    console.log time_start
     _flash.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 

@@ -43,6 +43,7 @@ module.exports = (app)->
     _schedule.initSchedule()
     _schedule.initMSchedule()
     _schedule.initReportSchedule()
+    _schedule.initPlayerSchedule()
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
 
