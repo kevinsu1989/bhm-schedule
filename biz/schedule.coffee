@@ -1,12 +1,14 @@
 _schedule = require 'node-schedule'
-_records = require './records'
-_mrecords = require './m_records'
-_browser = require './browser'
 _api = require './api'
 _moment = require 'moment'
 _child = require 'child_process'
 _async = require 'async'
 
+
+_records = require './records'
+_mrecords = require './m_records'
+_browser = require './browser'
+_flash = require './flash'
 
 report = ()->
   pages = ['首页', '底层', '电视剧', '综艺']
@@ -81,7 +83,8 @@ exports.initReportSchedule = ()->
 
   rule_day.hour = 10
   rule_day.minute = 0
-  report()
+  # reportM()
+  # report()
   day = _schedule.scheduleJob rule_day, ()->
     report()
     reportM()
@@ -146,6 +149,25 @@ exports.initMSchedule = ()->
     time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     time_end = _moment().startOf('hour').valueOf()
     _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
+
+exports.initPlayerSchedule = ()->
+  rule_day = new _schedule.RecurrenceRule()
+  rule_hour = new _schedule.RecurrenceRule()
+
+  rule_day.hour = 3
+  rule_day.minute = 15
+
+  rule_hour.minute = 2
+
+  day = _schedule.scheduleJob rule_day, ()->
+    time_start = _moment().subtract(1,'day').startOf('day').valueOf()
+    time_end = _moment().startOf('day').valueOf()
+    _flash.calculateRecordsByTime time_start, time_end, 'day', (err, result)->
+
+  hour = _schedule.scheduleJob rule_hour, ()->
+    time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
+    time_end = _moment().startOf('hour').valueOf()
+    _flash.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 
 

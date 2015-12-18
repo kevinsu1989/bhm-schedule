@@ -13,8 +13,9 @@ class RecordsHistory extends _BaseEntity
     super require('../schema/records_history').schema
 
 
-  saveHistoryRecords: (list, cb)->
-    @entity().insert(list).exec (err, data)->
-      cb err, data
+  saveHistoryRecords: (cb)->
+    sql = "insert into records_history select * from records where id > (select max(id) from records_history)"
+    
+    @execute sql, cb
 
 module.exports = new RecordsHistory

@@ -102,12 +102,8 @@ exports.calculateRecordsByTime = (timeStart, timeEnd, timeType)->
             if timeType is 'day'
               time.isSpeed = 'true'
               time.timeEnd += 2
-              ((page)->
-                setTimeout(()->
-                  for browser_name in browser
-                    calculateByTime time, page, browser_name, (err, result)->
-                , pindex * 1 * 10 * 1000)
-              )(page)
+              for browser_name in browser
+                calculateByTime time, page, browser_name, (err, result)->
             else
               for browser_name in browser
                 calculateByTime time, page, browser_name, (err, result)->
@@ -117,33 +113,11 @@ exports.calculateRecordsByTime = (timeStart, timeEnd, timeType)->
 
 
 
-
   
 
 exports.backUpRecords = ()->
   console.log "开始备份#{_moment().startOf('week').format('YYYYMMDD')}到#{_moment().subtract(1,'day').format('YYYYMMDD')}的数据"
-  timeStart = _moment().startOf('week').valueOf()
-  timeStart = 0
-  timeEnd = _moment().startOf('day').valueOf() - 1
-  queue = []
-  queue.push(
-    (done)->
-      _entity.records.findRecordsToBackUp timeStart, timeEnd, (err, result)->
-        done err, result
-  )
-  
-  queue.push(
-    (result, done)->
-      _entity.records_history.saveHistoryRecords result, (err, result)->
-        console.log "备份完成"
-        done err, result
-  )
-  # queue.push(
-  #   (result, done)->
-  #     _entity.records.deleteBackUpRecords timestamp, (err, result)->
-  #       done err, result
-  # )
-
-  _async.waterfall queue, (err, result)->
-
+  _entity.records_history.saveHistoryRecords (err, result)->
+    console.log "备份完成"
+    done err, result
 

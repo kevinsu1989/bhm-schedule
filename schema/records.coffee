@@ -45,5 +45,9 @@ exports.schema =
     hash: ''
     # 服务端版本
     server_version: ''
+    # 失败重发
+    repost: 'integer'
+    # refer
+    refer: ''
 
 

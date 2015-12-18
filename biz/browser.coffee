@@ -59,7 +59,6 @@ exports.calculateBrowserRecords = (timeStart, timeEnd, timeType)->
   timeArr = _common.getSplitTime timeStart, timeEnd, timeType if timeStart && timeEnd && timeType
 
   _entity.page.findPages (err, pages)->
-    browser = [null, 'ie', 'chrome']
 
     for time, index in timeArr
       ((time)->

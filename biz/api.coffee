@@ -70,12 +70,13 @@ calculateRecords = (records)->
   }
   return result if !records || records.length is 0
   for record in records
-    result.first_paint += parseInt(record.first_paint)
-    result.first_view += parseInt(record.first_view)
-    result.dom_ready += parseInt(record.dom_ready)
-    result.load_time += parseInt(record.load_time)
+    if 0 < record.load_time < 300000
+      result.first_paint += parseInt(record.first_paint)
+      result.first_view += parseInt(record.first_view)
+      result.dom_ready += parseInt(record.dom_ready)
+      result.load_time += parseInt(record.load_time)
+      result.pv_cal += 1 
     result.flash_load += record.flash_flag
-    result.pv_cal += 1 if parseInt(record.first_paint) isnt 0
 
   
   if result.pv_cal > 0
@@ -109,6 +110,7 @@ makeCalculatedRecords = (result)->
     js_load += record.js_load * record.js_count
 
   js_load = js_load / js_count
+  js_load = 1 if js_load is 0
   flash_load = flash_load / flash_count
   {
     records: records

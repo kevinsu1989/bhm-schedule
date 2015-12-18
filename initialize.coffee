@@ -39,17 +39,16 @@ module.exports = (app)->
   console.log "启动中..."
   require('./router').init(app)
   initBijou app
-  # _api.getIp()
   if process.env.NODE_ENV is 'production'
     _schedule.initSchedule()
     _schedule.initMSchedule()
     _schedule.initReportSchedule()
   else
-    # _schedule.initReportSchedule()
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
 
-  # _records.calculateRecordsByTime 1447430400000, 1447516800000, 'day', (err, result)->
-  # _browser.calculateBrowserRecords 1447988400000, 1447999200000, 'hour', (err, result)->
+    # _schedule.initReportSchedule()
+  # _records.calculateRecordsByTime 1444258799999, 1449138913646, 'hour', (err, result)->
+  # _browser.calculateBrowserRecords 1449514800000, 1449536400000, 'hour', (err, result)->
 
   # _mrecords.calculateRecordsByTime 1447603200000, 1447689600000, 'day', (err, result)->
 

@@ -38,7 +38,7 @@ class Records extends _BaseEntity
   # 查询播放器加载成功率
   getFlashLoadCount: (data, cb)->
     sql = "SELECT flash_load, count(*) as count FROM records where
-    timestamp > #{data.time_start} and timestamp < #{data.time_end} and flash_load in (0,1) and flash_installed <> 0 "
+    timestamp > #{data.time_start} and timestamp < #{data.time_end} and flash_load in (0,1) and flash_installed <> 0 and refer is not null"
 
     sql += " and browser_name='#{data.browser_name}' " if data.browser_name
 
@@ -54,7 +54,7 @@ class Records extends _BaseEntity
   # 查询播放器JS加载成功率
   getJsLoad: (data, cb)->
     sql = "select js_load,count(*) as count from (select case when flash_js_load_start is not null then 1 else 0 end as js_load from records 
-        where flash_installed=1 and cli_version in ('1.0.3','1.0.4','1.0.5') and timestamp > #{data.time_start} and timestamp < #{data.time_end} "
+        where flash_installed=1  and timestamp > #{data.time_start} and timestamp < #{data.time_end} "
 
     sql += " and browser_name='#{data.browser_name}' " if data.browser_name
 
@@ -71,7 +71,7 @@ class Records extends _BaseEntity
 
   # 查询pv数据    
   findPVRecords: (data, cb)->
-    sql = "select count(*) as pv from records_pv  where 
+    sql = "select count(*) as pv from records  where 
     timestamp > #{data.time_start} and timestamp < #{data.time_end} "
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
@@ -100,15 +100,15 @@ class Records extends _BaseEntity
 
   # 浏览器占比
   browserPercent: (data, cb)->
-    sql = "select browser_name as name, count(*) as value from records_pv a where 
-    a.timestamp > #{data.time_start} and a.timestamp < #{data.time_end} "
+    sql = "select browser_name as name, count(*) as value from records a where 
+    a.timestamp > #{data.time_start} and a.timestamp < #{data.time_end} and browser_name in ('ie','chrome','safari','firefox')"
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
     sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
 
-    sql += " group by browser_name order by value asc"
-
+    sql += " group by browser_name order by value asc limit 0,4"
+    console.log sql
     @execute sql, cb
 
 
