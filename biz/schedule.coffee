@@ -114,7 +114,7 @@ exports.initSchedule = ()->
   rule_backup.hour = 3
   rule_backup.minute = 30
 
-  rule_hour.minute = 15
+  rule_hour.minute = 5
 
   # backup = _schedule.scheduleJob rule_backup, ()->
   #   _records.backUpRecords (err, result)->
@@ -147,7 +147,7 @@ exports.initMSchedule = ()->
   rule_day.hour = 3
   rule_day.minute = 15
 
-  rule_hour.minute = 12
+  rule_hour.minute = 2
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()
@@ -170,7 +170,7 @@ exports.initPlayerSchedule = ()->
   rule_day.hour = 3
   rule_day.minute = 15
 
-  rule_hour.minute = 14
+  rule_hour.minute = 4
 
 
   day = _schedule.scheduleJob rule_day, ()->
