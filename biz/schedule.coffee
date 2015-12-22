@@ -10,6 +10,9 @@ _mrecords = require './m_records'
 _browser = require './browser'
 _flash = require './flash'
 
+
+
+#发送主站数据给bearyChat
 report = ()->
   pages = ['首页', '底层', '电视剧', '综艺']
   req = 
@@ -49,6 +52,7 @@ report = ()->
   )
 
 
+#发送M站数据给bearyChat
 reportM = ()->
   req = 
     query:
@@ -78,6 +82,9 @@ sendMsg = (title, text)->
 
   exec = _child.exec(command, options);
 
+
+
+#开启bearyChat报告任务
 exports.initReportSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
 
@@ -93,7 +100,7 @@ exports.initReportSchedule = ()->
 
 
 
-
+#开启主站数据计算定时任务
 exports.initSchedule = ()->
   rule_backup = new _schedule.RecurrenceRule()
   rule_day = new _schedule.RecurrenceRule()
@@ -107,7 +114,7 @@ exports.initSchedule = ()->
   rule_backup.hour = 3
   rule_backup.minute = 30
 
-  rule_hour.minute = 18
+  rule_hour.minute = 15
 
   # backup = _schedule.scheduleJob rule_backup, ()->
   #   _records.backUpRecords (err, result)->
@@ -131,6 +138,8 @@ exports.initSchedule = ()->
     , 15 * 1000)
 
 
+
+#开启M站数据计算定时任务
 exports.initMSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
   rule_hour = new _schedule.RecurrenceRule()
@@ -138,7 +147,7 @@ exports.initMSchedule = ()->
   rule_day.hour = 3
   rule_day.minute = 15
 
-  rule_hour.minute = 2
+  rule_hour.minute = 12
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()
@@ -150,6 +159,10 @@ exports.initMSchedule = ()->
     time_end = _moment().startOf('hour').valueOf()
     _mrecords.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
+
+
+
+#开启播放器数据计算定时任务
 exports.initPlayerSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
   rule_hour = new _schedule.RecurrenceRule()
@@ -157,9 +170,8 @@ exports.initPlayerSchedule = ()->
   rule_day.hour = 3
   rule_day.minute = 15
 
-  rule_hour.minute = 9
+  rule_hour.minute = 14
 
-  console.log 123
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()

@@ -145,7 +145,6 @@ getReturns = (records, browser, pv_count, pv_cal, flash_load, flash_count, js_lo
       result.dom_ready += record.result.dom_ready * record.result.pv_cal / pv_cal
       result.load_time += record.result.load_time * record.result.pv_cal / pv_cal
       result.flash_load += record.result.flash_load
-  result.flash_load_1 = result.flash_load / pv_count
   result.flash_load = flash_load
   result.flash_count = flash_count
   result.js_load = js_load
@@ -175,15 +174,11 @@ exports.getRecordsSplit = (req, res, cb)->
   data.timeStep = 60 * 1000 if data.timeStep < 60 * 1000
 
   queue = [] 
-  pv_count = 0
-  pv_cal = 0
-  flash_load = 0
-  flash_count = 0
-  js_load = 0
-  js_count = 0
+  pv_count = pv_cal = flash_load = js_load = js_count = 0
   # 用户要求快速查询时，进行快速查询
   if data.isSpeed is 'true'    
     queue.push((done)->
+      #查询已经计算好的基础数据
       _entity.records_calculated.findRecords data, (err, result)->
         result = makeCalculatedRecords result
 
@@ -198,16 +193,12 @@ exports.getRecordsSplit = (req, res, cb)->
 
         done err, result.records, data
     )
-    # queue.push((records, data, done)->
-    #   _entity.browser_calculated.findRecords data, (err, result)->
-    #     for record in records
-          
-    #     done null, records, data
-    # )
+    #查询浏览器占比
     queue.push((records, data, done)->
       _entity.browser_calculated.findSumRecords data, (err, result)->
         done null, records, result
     )
+  #使用原始数据计算，当数据量较大时会非常慢！
   else 
     queue.push((done)->
       _entity.records.findRecords data, (err, result)->
@@ -216,6 +207,7 @@ exports.getRecordsSplit = (req, res, cb)->
     )
 
     queue.push((records, data, done)->
+      #将数据按时间段划分
       recordsArr = devideRecordsByTime records, data
       for records in recordsArr
         records.result = calculateRecords records.records
@@ -225,6 +217,7 @@ exports.getRecordsSplit = (req, res, cb)->
     )
 
     queue.push((records, data, done)->
+      #计算播放器加载成功率
       _entity.records.getFlashLoadCount data, (err, result)->
         if result.length > 1
           flash_count = result[0].count * 1 + result[1].count * 1 
@@ -236,6 +229,7 @@ exports.getRecordsSplit = (req, res, cb)->
     )
 
     queue.push((records, data, done)->
+      #计算JS加载成功率
       _entity.records.getJsLoad data, (err, result)->
         if result.length > 1
           js_count = result[0].count * 1 + result[1].count * 1 
@@ -247,21 +241,24 @@ exports.getRecordsSplit = (req, res, cb)->
     )
 
     queue.push((records, data, done)->
+      #计算PV
       _entity.records.findPVRecords data, (err, result)->
         pv_count = ~~result[0]?.pv
         done null, records, data
     )
 
     queue.push((records, data, done)->
+      #计算浏览器占比
       _entity.records.browserPercent data, (err, result)->
         done null, records, result
     )
 
   _async.waterfall queue,(err, records, browser)->
+    #组合最终数据
     cb err, getReturns(records, browser, pv_count, pv_cal, flash_load, flash_count, js_load, js_count)
 
 
-
+#获取页面list
 exports.getPages = (req, res, cb)->
   _entity.page.findPages (err, result)->
     pages = [];

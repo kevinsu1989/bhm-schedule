@@ -17,6 +17,7 @@ class RecordsFlash extends _BaseEntity
   getRecords: (data, cb)->
     sql = "select (SELECT count(*) FROM records_flash where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as flash_load,
           (SELECT count(*) FROM records_flash_ad where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as ad,
+          (SELECT count(*) FROM records_flash_ad_end where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as ad_end,
           (SELECT count(*) FROM records_flash_cms where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as cms,
           (SELECT count(*) FROM records_flash_dispatch where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as dispatch,
           (SELECT count(*) FROM records_flash_play where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as play,

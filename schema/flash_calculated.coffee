@@ -14,6 +14,8 @@ exports.schema =
 
     ad: 'integer'
 
+    ad_end: 'integer'
+
     video_load: 'integer'
 
     play: 'integer'
