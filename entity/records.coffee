@@ -71,7 +71,7 @@ class Records extends _BaseEntity
 
   # 查询pv数据    
   findPVRecords: (data, cb)->
-    sql = "select count(*) as pv from records  where 
+    sql = "select count(*) as pv from records_pv  where 
     timestamp > #{data.time_start} and timestamp < #{data.time_end} "
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
