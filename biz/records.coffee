@@ -108,7 +108,7 @@ exports.calculateRecordsByTime = (timeStart, timeEnd, timeType)->
               for browser_name in browser
                 calculateByTime time, page, browser_name, (err, result)->
               
-        , index * 60 * 1000)
+        , index * 240 * 1000)
       )(time)
 
 

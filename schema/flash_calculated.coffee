@@ -20,6 +20,8 @@ exports.schema =
 
     play: 'integer'
 
+    vv: 'integer'
+
     time_start: 'bigInteger'
 
     time_end: 'bigInteger'

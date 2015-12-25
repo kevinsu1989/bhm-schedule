@@ -174,7 +174,7 @@ exports.getRecordsSplit = (req, res, cb)->
   data.timeStep = 60 * 1000 if data.timeStep < 60 * 1000
 
   queue = [] 
-  pv_count = pv_cal = flash_load = js_load = js_count = 0
+  pv_count = pv_cal = flash_load = js_load = js_count = flash_count = 0
   # 用户要求快速查询时，进行快速查询
   if data.isSpeed is 'true'    
     queue.push((done)->

@@ -9,6 +9,7 @@ _schedule = require './biz/schedule'
 _records = require './biz/records'
 _mrecords = require './biz/m_records'
 _browser = require './biz/browser'
+_flash = require './biz/flash'
 
 #初始化bijou
 initBijou = (app)->
@@ -47,11 +48,12 @@ module.exports = (app)->
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
 
+    # _flash.calculateRecordsByTime 1450407600000, 1451008800000, 'day', (err, result)->
     # _schedule.initReportSchedule()
-  # _records.calculateRecordsByTime 1444258799999, 1449138913646, 'hour', (err, result)->
-  # _browser.calculateBrowserRecords 1449514800000, 1449536400000, 'hour', (err, result)->
+    # _records.calculateRecordsByTime 1450785600000, 1450832400000, 'hour', (err, result)->
+    # _browser.calculateBrowserRecords 1449514800000, 1449536400000, 'hour', (err, result)->
 
-  # _mrecords.calculateRecordsByTime 1447603200000, 1447689600000, 'day', (err, result)->
+    # _mrecords.calculateRecordsByTime 1447603200000, 1447689600000, 'day', (err, result)->
 
 
 
