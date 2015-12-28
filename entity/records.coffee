@@ -85,13 +85,7 @@ class Records extends _BaseEntity
     console.log sql
     
     @execute sql, cb
-    
-  # 查询将要备份的记录
-  findRecordsToBackUp: (timeStart, timeEnd,cb)->
-    sql = "select * from records where timestamp < #{timeEnd} and timestamp > #{timeStart}"
-    # console.log sql
-    @execute sql, cb
-  
+
   # 删除备份好的记录
   deleteBackUpRecords: (timestamp, cb)->
     sql = "delete from records where timestamp < #{timestamp}"
@@ -100,7 +94,7 @@ class Records extends _BaseEntity
 
   # 浏览器占比
   browserPercent: (data, cb)->
-    sql = "select browser_name as name, count(*) as value from records a where 
+    sql = "select browser_name as name, count(*) as value from records_pv a where 
     a.timestamp > #{data.time_start} and a.timestamp < #{data.time_end} and browser_name in ('ie','chrome','safari','firefox')"
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like

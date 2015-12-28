@@ -51,7 +51,7 @@ module.exports = (app)->
     # _flash.calculateRecordsByTime 1450407600000, 1451008800000, 'day', (err, result)->
     # _schedule.initReportSchedule()
     # _records.calculateRecordsByTime 1450785600000, 1450832400000, 'hour', (err, result)->
-    # _browser.calculateBrowserRecords 1449514800000, 1449536400000, 'hour', (err, result)->
+    # _browser.calculateBrowserRecords 1451012400000, 1451023200000, 'hour', (err, result)->
 
     # _mrecords.calculateRecordsByTime 1447603200000, 1447689600000, 'day', (err, result)->
 

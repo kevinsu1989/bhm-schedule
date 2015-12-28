@@ -9,7 +9,7 @@ _records = require './records'
 _mrecords = require './m_records'
 _browser = require './browser'
 _flash = require './flash'
-
+_report = require './report'
 
 
 #发送主站数据给bearyChat
@@ -93,8 +93,12 @@ exports.initReportSchedule = ()->
   # reportM()
   # report()
   day = _schedule.scheduleJob rule_day, ()->
-    report()
-    reportM()
+    _report.report()
+    _report.reportM()
+    _report.reportPlayer()
+  # _report.report()
+  # _report.reportM()
+  # _report.reportPlayer()
 
 
 
