@@ -23,6 +23,7 @@ class RecordsFlash extends _BaseEntity
           (SELECT count(distinct(hash)) FROM records_flash_play where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as play,
           (SELECT count(*) FROM records_flash_play where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as vv,
           (SELECT count(distinct(hash)) FROM records_flash_video_load where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as video_load,
+          (SELECT count(distinct(hash)) FROM records_flash_buffer_full where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as buffer_full,
           (SELECT count(distinct(hash)) FROM records_pv where timestamp>#{data.time_start} and timestamp<#{data.time_end} and page_name='底层') as pv,
           #{data.time_end} as time_end ,#{data.time_start} as time_start, '#{data.time_type}' as time_type" 
 

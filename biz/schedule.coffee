@@ -107,7 +107,6 @@ exports.initPlayerSchedule = ()->
   hour = _schedule.scheduleJob rule_hour, ()->
     time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     time_end = _moment().startOf('hour').valueOf()
-    console.log time_start
     _flash.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
 

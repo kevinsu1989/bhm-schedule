@@ -14,7 +14,7 @@ class FlashRecordsCalculated extends _BaseEntity
 
   getRecordsForDay: (data, cb)->
     sql = "select sum(ad) as ad ,sum(ad_end) as ad_end, sum(dispatch) as dispatch, sum(video_load) as video_load, 
-        sum(cms) as cms, sum(play) as play, sum(vv) as vv, sum(flash_load) as flash_load, sum(pv) as pv,
+        sum(cms) as cms, sum(play) as play, sum(vv) as vv, sum(flash_load) as flash_load, sum(pv) as pv,sum(buffer_full) as buffer_full,
         #{data.time_start} as time_start, #{data.time_end} as time_end, '#{data.time_type}' as time_type
         FROM flash_calculated where time_start>#{data.time_start} and time_start<#{data.time_end}) and time_type='hour'" 
     @execute sql, cb
