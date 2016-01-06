@@ -25,6 +25,12 @@ devideRecordsByTime = (records, data)->
     time_end: timestamp
     records: []
   }
+  records_level = {
+    first_paint:{},
+    first_view:{},
+    dom_ready:{},
+    load_time:{}
+  }
   for rec in records
     if rec.first_paint isnt 0
       records_level.first_paint[Math.floor(rec.first_paint/200)] = records_level.first_paint[Math.floor(rec.first_paint/200)]+1 || 1
