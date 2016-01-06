@@ -38,3 +38,12 @@ exports.schema =
 
     js_count: 'integer'
 
+
+    first_paint_levels: ''
+
+    dom_ready_levels: ''
+
+    load_time_levels: ''
+    
+    first_view_levels: ''
+

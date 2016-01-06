@@ -11,7 +11,12 @@ _ip = require 'lib-qqwry'
 _fs = require 'fs-extra'
 _request = require 'request'
 
-
+records_level = {
+  first_paint:{},
+  first_view:{},
+  dom_ready:{},
+  load_time:{}
+}
 devideRecordsByTime = (records, data)->
   recordsArr = []
   timestamp = parseInt(data.time_start) + parseInt(data.timeStep)
@@ -21,6 +26,11 @@ devideRecordsByTime = (records, data)->
     records: []
   }
   for rec in records
+    if rec.first_paint isnt 0
+      records_level.first_paint[Math.floor(rec.first_paint/200)] = records_level.first_paint[Math.floor(rec.first_paint/200)]+1 || 1
+      records_level.first_view[Math.floor(rec.first_view/400)] = records_level.first_view[Math.floor(rec.first_view/400)]+1 || 1
+      records_level.dom_ready[Math.floor(rec.dom_ready/600)] = records_level.dom_ready[Math.floor(rec.dom_ready/600)]+1 || 1
+      records_level.load_time[Math.floor(rec.load_time/800)] = records_level.load_time[Math.floor(rec.load_time/800)]+1 || 1
     if parseInt(rec.timestamp) < timestamp && rec isnt records[records.length - 1]
       timeRecords.records.push rec
     else
@@ -48,6 +58,7 @@ devideRecordsByTime = (records, data)->
       timestamp += data.timeStep * (total + 1)
   #补全最后一条数据到时间终点的空白
   leftTime = Math.floor((data.time_end - timestamp)/data.timeStep)
+
   for index in [0...leftTime]
     recordsArr.push({
       time_start: parseInt(timestamp) + index * data.timeStep
@@ -145,6 +156,14 @@ getReturns = (records, browser, pv_count, pv_cal, flash_load, flash_count, js_lo
       result.dom_ready += record.result.dom_ready * record.result.pv_cal / pv_cal
       result.load_time += record.result.load_time * record.result.pv_cal / pv_cal
       result.flash_load += record.result.flash_load
+
+  for key of records_level
+    for _key, value of records_level[key]
+      if _key > 9
+        records_level[key][9] += records_level[key][_key] 
+        delete records_level[key][_key]
+
+  result.records_level = records_level
   result.flash_load = flash_load
   result.flash_count = flash_count
   result.js_load = js_load

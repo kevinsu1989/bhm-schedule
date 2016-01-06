@@ -46,13 +46,17 @@ calculateByTime = (time, page, browser_name, cb)->
         first_view: result.first_view,
         dom_ready: result.dom_ready,
         load_time: result.load_time,
-        flash_percent: result.flash_load,
-        pv: result.pv,
+        flash_percent: result.flash_load,    
         page_name: page.page_name,
+        pv: result.pv,
         flash_count: result.flash_count,
         js_load: result.js_load,
         js_count: result.js_count,
-        type: time.timeType
+        type: time.timeType,
+        first_paint_levels: JSON.stringify(result.records_level.first_paint)
+        first_view_levels: JSON.stringify(result.records_level.first_view)
+        dom_ready_levels: JSON.stringify(result.records_level.dom_ready)
+        load_time_levels: JSON.stringify(result.records_level.load_time)
       }
       if result.records[0]
         record.pv_cal = result.records[0].result.pv_cal
@@ -60,9 +64,22 @@ calculateByTime = (time, page, browser_name, cb)->
         record.pv_cal = 0
       record.browser_name = browser_name if browser_name
       console.log record
-      _entity.records_calculated.saveCalculatedRecords [record], done
+      _entity.records_calculated.saveCalculatedRecords [record], (err, result)->
+        done err, result, time
   )
-
+  # queue.push(
+  #   (result, time, done)->
+  #     records = []
+  #     for key of result.records_level
+  #       records.push(
+  #         time_start: time.timeStart,
+  #         time_end: time.timeEnd,
+  #         time_type: time.timeType,        
+  #         page_name: page.page_name,
+  #         name: key,
+  #         values: JSON.stringify(result.records_level[key])
+  #       )
+  # )
 
   _async.waterfall queue, (err, result)->
     cb err, result

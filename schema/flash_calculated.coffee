@@ -22,6 +22,8 @@ exports.schema =
 
     vv: 'integer'
 
+    buffer_full: 'integer'
+
     time_start: 'bigInteger'
 
     time_end: 'bigInteger'

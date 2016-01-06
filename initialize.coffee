@@ -11,6 +11,9 @@ _mrecords = require './biz/m_records'
 _browser = require './biz/browser'
 _flash = require './biz/flash'
 
+
+_moment = require 'moment'
+
 #初始化bijou
 initBijou = (app)->
   options =
@@ -47,6 +50,10 @@ module.exports = (app)->
     _schedule.initPlayerSchedule()
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
+
+    # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
+    # time_end = _moment().startOf('hour').valueOf()
+    # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
     # _flash.calculateRecordsByTime 1450407600000, 1451008800000, 'day', (err, result)->
     # _schedule.initReportSchedule()
