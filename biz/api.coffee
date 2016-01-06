@@ -11,12 +11,6 @@ _ip = require 'lib-qqwry'
 _fs = require 'fs-extra'
 _request = require 'request'
 
-records_level = {
-  first_paint:{},
-  first_view:{},
-  dom_ready:{},
-  load_time:{}
-}
 devideRecordsByTime = (records, data)->
   recordsArr = []
   timestamp = parseInt(data.time_start) + parseInt(data.timeStep)
@@ -72,7 +66,10 @@ devideRecordsByTime = (records, data)->
       records:[]
     })
   
-  recordsArr
+  {
+    "recordsArr": recordsArr,
+    "records_level": records_level
+  }
 
 # 计算平均值
 calculateRecords = (records)->
@@ -140,7 +137,7 @@ makeCalculatedRecords = (result)->
   }
 
 # 最终返回结果拼接
-getReturns = (records, browser, pv_count, pv_cal, flash_load, flash_count, js_load, js_count)->
+getReturns = (records, browser, pv_count, pv_cal, flash_load, flash_count, js_load, js_count, records_level)->
 
   result = {
     first_paint: 0
@@ -200,6 +197,7 @@ exports.getRecordsSplit = (req, res, cb)->
 
   queue = [] 
   pv_count = pv_cal = flash_load = js_load = js_count = flash_count = 0
+  records_level = {}
   # 用户要求快速查询时，进行快速查询
   if data.isSpeed is 'true'    
     queue.push((done)->
@@ -233,7 +231,9 @@ exports.getRecordsSplit = (req, res, cb)->
 
     queue.push((records, data, done)->
       #将数据按时间段划分
-      recordsArr = devideRecordsByTime records, data
+      recordsDevide = devideRecordsByTime records, data
+      recordsArr = recordsDevide.recordsArr
+      records_level = recordsDevide.records_level
       for records in recordsArr
         records.result = calculateRecords records.records
         pv_cal += records.result.pv_cal
@@ -280,7 +280,7 @@ exports.getRecordsSplit = (req, res, cb)->
 
   _async.waterfall queue,(err, records, browser)->
     #组合最终数据
-    cb err, getReturns(records, browser, pv_count, pv_cal, flash_load, flash_count, js_load, js_count)
+    cb err, getReturns(records, browser, pv_count, pv_cal, flash_load, flash_count, js_load, js_count, records_level)
 
 
 #获取页面list
