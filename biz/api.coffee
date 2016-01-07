@@ -28,9 +28,9 @@ devideRecordsByTime = (records, data)->
   for rec in records
     if rec.first_paint isnt 0
       records_level.first_paint[Math.floor(rec.first_paint/200)] = records_level.first_paint[Math.floor(rec.first_paint/200)]+1 || 1
-      records_level.first_view[Math.floor(rec.first_view/400)] = records_level.first_view[Math.floor(rec.first_view/400)]+1 || 1
+      records_level.first_view[Math.floor(rec.first_view/800)] = records_level.first_view[Math.floor(rec.first_view/800)]+1 || 1
       records_level.dom_ready[Math.floor(rec.dom_ready/600)] = records_level.dom_ready[Math.floor(rec.dom_ready/600)]+1 || 1
-      records_level.load_time[Math.floor(rec.load_time/800)] = records_level.load_time[Math.floor(rec.load_time/800)]+1 || 1
+      records_level.load_time[Math.floor(rec.load_time/1000)] = records_level.load_time[Math.floor(rec.load_time/1000)]+1 || 1
     if parseInt(rec.timestamp) < timestamp && rec isnt records[records.length - 1]
       timeRecords.records.push rec
     else
