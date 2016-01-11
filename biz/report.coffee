@@ -60,7 +60,7 @@ exports.report = ()->
             首屏时间：#{record.first_view}ms,
             完全加载：#{record.load_time}ms。\\n
         "
-      sendMsg '昨日主站数据', text
+      sendMsg "#{_moment().subtract(1,'day').startOf('day').format('YYYY-MM-DD')}主站数据", text
   )
 
 
@@ -77,7 +77,7 @@ exports.reportM = ()->
     text = "资源加载成功率：#{Math.round(result[0].detail/result[0].pv*10000)/100}%\\n"
     text += "PV-VV转化率：#{Math.round((result[0].vv*1 + result[0].app*1)/result[0].pv*10000)/100}%\\n"
     text += "PV-APP转化率：#{Math.round(result[0].app/result[0].pv*10000)/100}%"
-    sendMsg '昨日M站数据', text
+    sendMsg "#{_moment().subtract(1,'day').startOf('day').format('YYYY-MM-DD')}M站数据", text
 
 #发送M站数据给bearyChat
 exports.reportPlayer = ()->
@@ -97,5 +97,5 @@ exports.reportPlayer = ()->
     text += "分发-广告开始流失率：#{Math.round((result[0].dispatch-result[0].ad)/result[0].pv*10000)/100}%\\n"
     text += "广告开始-广告结束流失率：#{Math.round((result[0].ad-result[0].ad_end)/result[0].pv*10000)/100}%\\n"
     text += "广告结束-VV流失率：#{Math.round((result[0].ad_end-result[0].vv)/result[0].pv*10000)/100}%\\n"
-    sendMsg '昨日PV-VV流失率', text
+    sendMsg "#{_moment().subtract(1,'day').startOf('day').format('YYYY-MM-DD')}PV-VV流失率", text
 
