@@ -13,7 +13,10 @@ class MRecordsPV extends _BaseEntity
       cb err, data
 
   getRecords: (data, cb)->
-    sql = "select (SELECT count(*) FROM m_records_pv where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as pv,
+    sql = "SELECT (SELECT count(*) FROM m_records_pv where timestamp>#{data.time_start} and timestamp<#{data.time_end} and url like 'http://m.hunantv.com/#/play%') as pv,
+          (SELECT count(*) FROM (SELECT distinct(cookie) FROM m_records_pv where timestamp>#{data.time_start} and timestamp<#{data.time_end} and url like 'http://m.hunantv.com/#/play%') m) as uv,
+          (SELECT count(*) FROM m_records_pv where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as pv_all,
+          (SELECT count(*) FROM (SELECT distinct(cookie) FROM m_records_pv where timestamp>#{data.time_start} and timestamp<#{data.time_end}) m) as uv_all,
 					(SELECT count(*) FROM m_records_detail where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as detail,
 					(SELECT count(*) FROM m_records_source where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as source,
 					(SELECT count(*) FROM m_records_vv where timestamp>#{data.time_start} and timestamp<#{data.time_end}) as vv,

@@ -3,7 +3,6 @@ _moment = require 'moment'
 _child = require 'child_process'
 _async = require 'async'
 
-
 _records = require './records'
 _mrecords = require './m_records'
 _browser = require './browser'
@@ -12,7 +11,6 @@ _flash = require './flash'
 
 
 sendMsg = (title, text)->
-
 
   send_options = "{\"text\":\"#{title}\",\"attachments\":[{\"title\":\"\",\"text\":\"#{text}\",\"color\":\"#ffa500\"}]}"
 

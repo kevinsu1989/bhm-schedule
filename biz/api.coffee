@@ -166,6 +166,7 @@ getReturns = (records, browser, pv_count, pv_cal, flash_load, flash_count, js_lo
         records_level[key][9] += records_level[key][_key] 
         delete records_level[key][_key]
 
+
   result.records_level = records_level
   result.flash_load = flash_load
   result.flash_count = flash_count

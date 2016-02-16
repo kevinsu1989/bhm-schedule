@@ -48,19 +48,22 @@ module.exports = (app)->
     _schedule.initMSchedule()
     _schedule.initReportSchedule()
     _schedule.initPlayerSchedule()
+    _schedule.initMobileMailSchedule()
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
 
+
+    # _schedule.initSchedule()
+    # _schedule.initMSchedule()
+    # _schedule.initReportSchedule()
     # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     # time_end = _moment().startOf('hour').valueOf()
     # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
-    # _flash.calculateRecordsByTime 1450407600000, 1451008800000, 'day', (err, result)->
-    # _schedule.initReportSchedule()
-    # _records.calculateRecordsByTime 1450785600000, 1450832400000, 'hour', (err, result)->
-    # _browser.calculateBrowserRecords 1451012400000, 1451023200000, 'hour', (err, result)->
-
-    # _mrecords.calculateRecordsByTime 1447603200000, 1447689600000, 'day', (err, result)->
+    # _flash.calculateRecordsByTime 1453651200000, 1453737600000, 'day', (err, result)->
+    # _records.calculateRecordsByTime 1453651200000, 1453737600000, 'day', (err, result)->
+    # _browser.calculateBrowserRecords 1453651200000, 1453737600000, 'day', (err, result)->
+    # _mrecords.calculateRecordsByTime 1453651200000, 1453737600000, 'day', (err, result)->
 
 
 

@@ -12,11 +12,23 @@ _flash = require './flash'
 _report = require './report'
 
 
+_mail = require './mail'
+
+
+
+
+#开启M站邮件报告任务
+exports.initMobileMailSchedule = ()->
+  rule_week = new _schedule.RecurrenceRule()
+  rule_week.dayOfWeek = [new _schedule.Range(4, 4)]
+  rule_week.hour = 10
+  rule_week.minute = 0
+  rule_week = _schedule.scheduleJob rule_week, ()->
+    _mail.reportMobile()
 
 #开启bearyChat报告任务
 exports.initReportSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
-
   rule_day.hour = 10
   rule_day.minute = 0
   day = _schedule.scheduleJob rule_day, ()->
@@ -40,7 +52,7 @@ exports.initSchedule = ()->
   rule_backup.hour = 3
   rule_backup.minute = 30
 
-  rule_hour.minute = 5
+  rule_hour.minute = 31
 
   # backup = _schedule.scheduleJob rule_backup, ()->
   #   _records.backUpRecords (err, result)->
@@ -73,7 +85,7 @@ exports.initMSchedule = ()->
   rule_day.hour = 3
   rule_day.minute = 15
 
-  rule_hour.minute = 2
+  rule_hour.minute = 30
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()
