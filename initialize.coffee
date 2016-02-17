@@ -54,7 +54,7 @@ module.exports = (app)->
 
 
     # _schedule.initSchedule()
-    # _schedule.initMSchedule()
+    _schedule.initMSchedule()
     # _schedule.initReportSchedule()
     # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     # time_end = _moment().startOf('hour').valueOf()
