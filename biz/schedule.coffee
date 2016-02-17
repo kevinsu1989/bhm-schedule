@@ -52,7 +52,7 @@ exports.initSchedule = ()->
   rule_backup.hour = 3
   rule_backup.minute = 30
 
-  rule_hour.minute = 31
+  rule_hour.minute = 5
 
   # backup = _schedule.scheduleJob rule_backup, ()->
   #   _records.backUpRecords (err, result)->
@@ -83,9 +83,9 @@ exports.initMSchedule = ()->
   rule_hour = new _schedule.RecurrenceRule()
 
   rule_day.hour = 3
-  rule_day.minute = 15
+  rule_day.minute = 13
 
-  rule_hour.minute = 30
+  rule_hour.minute = 2
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()

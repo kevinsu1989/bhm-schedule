@@ -34,14 +34,22 @@ exports.reportMobile = ()->
       type: 'day'
 
   address = '01926@mgtv.com'
-  
+
   _mrecords.getMRecords req, null, (err, result)->
     text = "<table style='border-top:1px solid;border-left:1px solid;border-spacing:0;'><tr>
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>日期</td>
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-全部</td>
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>UV-全部</td>
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-播放</td>
-    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>UV-播放</td></tr>"
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>UV-播放</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-精选</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-综艺</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-电视剧</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-电影</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-动漫</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-搜索</td>
+
+    </tr>"
 
     for item in result
       text += "<tr>
@@ -50,6 +58,12 @@ exports.reportMobile = ()->
       <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.uv_all}00</td>
       <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv}00</td>
       <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.uv}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_1}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_3}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_4}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_5}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_6}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_s}00</td>
       </tr>"
     text += "</table>"
 
