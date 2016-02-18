@@ -11,9 +11,10 @@ _mrecords = require './biz/m_records'
 _browser = require './biz/browser'
 _flash = require './biz/flash'
 
-
 _moment = require 'moment'
 
+# _pageres = require 'pageres'
+# _fs = require 'fs-extra'
 #初始化bijou
 initBijou = (app)->
   options =
@@ -52,18 +53,23 @@ module.exports = (app)->
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
 
-
+    # _schedule.initMobileMailSchedule()
+    # pageres = new _pageres({delay: 10})
+    # .src('192.168.8.66:8200/playerLoad', ['1920x1080'], {crop: true})
+    # .dest(__dirname)
+    # .run()
+    # .then(()-> console.log('done'));
     # _schedule.initSchedule()
-    _schedule.initMSchedule()
+    # _schedule.initMSchedule()
     # _schedule.initReportSchedule()
     # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     # time_end = _moment().startOf('hour').valueOf()
     # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
-    # _flash.calculateRecordsByTime 1453651200000, 1453737600000, 'day', (err, result)->
-    # _records.calculateRecordsByTime 1453651200000, 1453737600000, 'day', (err, result)->
-    # _browser.calculateBrowserRecords 1453651200000, 1453737600000, 'day', (err, result)->
-    # _mrecords.calculateRecordsByTime 1453651200000, 1453737600000, 'day', (err, result)->
+    # _flash.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
+    # _records.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
+    # _browser.calculateBrowserRecords 1455638400000, 1455724800000, 'day', (err, result)->
+    # _mrecords.calculateRecordsByTime 1454515200000, 1455638400000, 'day', (err, result)->
 
 
 

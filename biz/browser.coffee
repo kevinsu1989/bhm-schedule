@@ -65,5 +65,5 @@ exports.calculateBrowserRecords = (timeStart, timeEnd, timeType)->
         setTimeout(()->
           for page in pages
             calculateBrowser time, page, (err, result)->
-        , index * 1 * 15 * 1000)
+        , index * 1 * 6 * 1000)
       )(time)

@@ -19,12 +19,13 @@ _mail = require './mail'
 
 #开启M站邮件报告任务
 exports.initMobileMailSchedule = ()->
+  _mail.reportMobile()
   rule_week = new _schedule.RecurrenceRule()
   rule_week.dayOfWeek = [new _schedule.Range(4, 4)]
-  rule_week.hour = 10
+  rule_week.hour = 9
   rule_week.minute = 0
   rule_week = _schedule.scheduleJob rule_week, ()->
-    _mail.reportMobile()
+    
 
 #开启bearyChat报告任务
 exports.initReportSchedule = ()->
@@ -82,10 +83,10 @@ exports.initMSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
   rule_hour = new _schedule.RecurrenceRule()
 
-  rule_day.hour = 3
-  rule_day.minute = 25
+  rule_day.hour = 2
+  rule_day.minute = 30
 
-  rule_hour.minute = 12
+  rule_hour.minute = 2
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()
@@ -105,8 +106,8 @@ exports.initPlayerSchedule = ()->
   rule_day = new _schedule.RecurrenceRule()
   rule_hour = new _schedule.RecurrenceRule()
 
-  rule_day.hour = 3
-  rule_day.minute = 20
+  rule_day.hour = 1
+  rule_day.minute = 30
 
   rule_hour.minute = 1
 
