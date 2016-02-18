@@ -26,14 +26,15 @@ sendMail = (title, text, address)->
 
 
 #发送M站数据给email
-exports.reportMobile = ()->
+exports.reportMobile = (day, address)->
+  day = 7 if !day
+  address = '01926@mgtv.com' if !address
   req = 
     query:
-      time_start: _moment().subtract(7,'day').startOf('day').valueOf()
+      time_start: _moment().subtract(day,'day').startOf('day').valueOf()
       time_end: _moment().startOf('day').valueOf() + 1
       type: 'day'
 
-  address = '01926@mgtv.com'
 
   _mrecords.getMRecords req, null, (err, result)->
     text = "<table style='border-top:1px solid;border-left:1px solid;border-spacing:0;'><tr>
@@ -67,4 +68,4 @@ exports.reportMobile = ()->
       </tr>"
     text += "</table>"
 
-    sendMail "#{_moment().subtract(7,'day').startOf('day').format('YYYY-MM-DD')}到#{_moment().subtract(1,'day').startOf('day').format('YYYY-MM-DD')}M站数据", text, address
+    sendMail "#{_moment().subtract(day,'day').startOf('day').format('YYYY-MM-DD')}到#{_moment().subtract(1,'day').startOf('day').format('YYYY-MM-DD')}M站数据", text, address

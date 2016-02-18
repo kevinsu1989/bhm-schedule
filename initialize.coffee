@@ -52,7 +52,7 @@ module.exports = (app)->
     _schedule.initMobileMailSchedule()
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
-
+    
     # _schedule.initMobileMailSchedule()
     # pageres = new _pageres({delay: 10})
     # .src('192.168.8.66:8200/playerLoad', ['1920x1080'], {crop: true})
@@ -69,7 +69,7 @@ module.exports = (app)->
     # _flash.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
     # _records.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
     # _browser.calculateBrowserRecords 1455638400000, 1455724800000, 'day', (err, result)->
-    # _mrecords.calculateRecordsByTime 1454515200000, 1455638400000, 'day', (err, result)->
+    # _mrecords.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
 
 
 

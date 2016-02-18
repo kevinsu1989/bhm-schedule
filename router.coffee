@@ -12,6 +12,7 @@ _cluster = require 'cluster'
 _api = require './biz/api'
 _records = require './biz/records'
 _browser = require './biz/browser'
+_mail = require './biz/mail'
 
 receiveData = (req, res, next)->
   _api.receiveData req, res, (err, result)-> _http.responseJSON err, result, res
@@ -37,6 +38,12 @@ calBrowser = (req, res, next)->
   _browser.calculateBrowserRecords req.query.time_start * 1, req.query.time_end * 1, req.query.type, (err, result)->
     _http.responseJSON err, result, res
 
+sendMailMobile = (req, res, next)->
+  return if !req.query.day || !req.query.mail
+
+  _mail.reportMobile(req.query.day, req.query.mail)
+
+  _http.responseJSON null, {msg:'发送成功！'}, res
 
 #初始化路由
 exports.init = (app)->
@@ -63,6 +70,8 @@ exports.init = (app)->
   app.get '/api/cal/records', calRecords
   #计算浏览器占比
   app.get '/api/cal/browser', calBrowser
+  #计算浏览器占比
+  app.get '/api/mail/mobile', sendMailMobile
 
 
   app.get /(\/\w+)?$/, (req, res, next)-> res.sendfile 'static/index.html'
