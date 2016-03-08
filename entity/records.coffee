@@ -25,7 +25,7 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and a.url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
+    sql += " and a.url like '%.com#{data.page_like}%'" if data.page_like
 
     sql += " and browser_name='#{data.browser_name}'" if data.browser_name
 
@@ -44,7 +44,7 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
+    sql += " and url like '%.com#{data.page_like}%'" if data.page_like
 
     sql += " group by flash_load order by flash_load "
 
@@ -60,7 +60,7 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
+    sql += " and url like '%.com#{data.page_like}%'" if data.page_like
 
     sql += " ) a group by a.js_load"
 
@@ -76,7 +76,7 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
+    sql += " and url like '%.com#{data.page_like}%'" if data.page_like
 
     sql += " and browser_name='#{data.browser_name}'" if data.browser_name
 
@@ -99,7 +99,7 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and url like 'http://www.hunantv.com#{data.page_like}%'" if data.page_like
+    sql += " and url like '%.com#{data.page_like}%'" if data.page_like
 
     sql += " group by browser_name order by value asc limit 0,4"
     console.log sql

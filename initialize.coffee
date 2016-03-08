@@ -10,6 +10,7 @@ _records = require './biz/records'
 _mrecords = require './biz/m_records'
 _browser = require './biz/browser'
 _flash = require './biz/flash'
+_report = require './biz/report'
 
 _moment = require 'moment'
 
@@ -61,15 +62,15 @@ module.exports = (app)->
     # .then(()-> console.log('done'));
     # _schedule.initSchedule()
     # _schedule.initMSchedule()
-    # _schedule.initReportSchedule()
     # time_start = _moment().subtract(1,'hour').startOf('hour').valueOf()
     # time_end = _moment().startOf('hour').valueOf()
     # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
-    # _flash.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
-    # _records.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
-    # _browser.calculateBrowserRecords 1455638400000, 1455724800000, 'day', (err, result)->
-    # _mrecords.calculateRecordsByTime 1455638400000, 1455724800000, 'day', (err, result)->
+    # _report.report()
+    # _flash.calculateRecordsByTime 1456675200000, 1456761600000, 'day', (err, result)->
+    # _records.calculateRecordsByTime 1456675200000, 1456761600000, 'day', (err, result)->
+    # _browser.calculateBrowserRecords 1456675200000, 1456761600000, 'day', (err, result)->
+    # _mrecords.calculateRecordsByTime 1456675200000, 1456761600000, 'day', (err, result)->
 
 
 
