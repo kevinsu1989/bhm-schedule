@@ -44,6 +44,7 @@ exports.report = ()->
       req.params.page_name = page
       _api.getRecordsSplit req, null, (err, result)->
         console.log result
+        done null if !result
         list.push result.records[0].result
         done null
     )

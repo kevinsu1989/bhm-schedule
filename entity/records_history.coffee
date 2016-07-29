@@ -14,7 +14,13 @@ class RecordsHistory extends _BaseEntity
 
 
   saveHistoryRecords: (cb)->
-    sql = "insert into records_history select * from records where id > (select max(id) from records_history)"
+    sql = "insert into records_history select 
+	id,page_name,version,browser_name,browser_version,ip,resolution,district,timestamp,first_paint,dom_ready,load_time,
+	first_view,flash_load,snail_name,snail_duration,flash_load_time,hash,url,server_version,flash_installed,flash_version,
+	flash_js_load,ua,cli_version,flash_js_load_start,repost,refer
+
+
+    from records where id > (select max(id) from records_history)"
     
     @execute sql, cb
 

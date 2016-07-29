@@ -46,11 +46,11 @@ module.exports = (app)->
   require('./router').init(app)
   initBijou app
   if process.env.NODE_ENV is 'production'
-    _schedule.initSchedule()
+    # _schedule.initSchedule()
     _schedule.initMSchedule()
-    _schedule.initReportSchedule()
-    _schedule.initPlayerSchedule()
-    _schedule.initMobileMailSchedule()
+    # _schedule.initReportSchedule()
+    # _schedule.initPlayerSchedule()
+    # _schedule.initMobileMailSchedule()
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
     
@@ -67,10 +67,10 @@ module.exports = (app)->
     # _records.calculateRecordsByTime time_start, time_end, 'hour', (err, result)->
 
     # _report.report()
-    # _flash.calculateRecordsByTime 1456675200000, 1456761600000, 'day', (err, result)->
-    # _records.calculateRecordsByTime 1456675200000, 1456761600000, 'day', (err, result)->
-    # _browser.calculateBrowserRecords 1456675200000, 1456761600000, 'day', (err, result)->
-    # _mrecords.calculateRecordsByTime 1456675200000, 1456761600000, 'day', (err, result)->
+    # _flash.calculateRecordsByTime 1461268800000, 1461319200000, 'hour', (err, result)->
+    # _records.calculateRecordsByTime 1461268800000, 1461319200000, 'hour', (err, result)->
+    # _browser.calculateBrowserRecords 1461268800000, 1461319200000, 'hour', (err, result)->
+    # _mrecords.calculateRecordsByTime 1461268800000, 1461319200000, 'hour', (err, result)->
 
 
 

@@ -49,6 +49,7 @@ exports.reportMobile = (day, address)->
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-电影</td>
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-动漫</td>
     <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>PV-搜索</td>
+    <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>UV-播放</td>
 
     </tr>"
 
@@ -65,6 +66,7 @@ exports.reportMobile = (day, address)->
       <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_5}00</td>
       <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_c_6}00</td>
       <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.pv_s}00</td>
+      <td style='border-bottom:1px solid;border-right:1px solid;padding:5px;'>#{item.play_uv}00</td>
       </tr>"
     text += "</table>"
 

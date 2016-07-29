@@ -38,7 +38,7 @@ class Records extends _BaseEntity
   # 查询播放器加载成功率
   getFlashLoadCount: (data, cb)->
     sql = "SELECT flash_load, count(*) as count FROM records where
-    timestamp > #{data.time_start} and timestamp < #{data.time_end} and flash_load in (0,1) and flash_installed <> 0 and refer is not null"
+    timestamp > #{data.time_start} and timestamp < #{data.time_end} and flash_load in (0,1) and flash_installed <> 0 and cli_version='1.0.13' and refer is not null"
 
     sql += " and browser_name='#{data.browser_name}' " if data.browser_name
 
