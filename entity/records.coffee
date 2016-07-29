@@ -110,7 +110,7 @@ class Records extends _BaseEntity
   getIp: (cb)->
     time_start = 1445011200000
     time_end = 1445356800000
-    sql = "select ip,count(*) as c from records where flash_load=0 and flash_installed=1 and url like '%hunantv.com/v/1%' group by ip order by c desc limit 0,100"
+    sql = "select ip,count(*) as c from records where flash_load=0 and flash_installed=1 and url like '%.com/v/1%' group by ip order by c desc limit 0,100"
     # sql = "SELECT ip FROM records where ip is not null order by id desc limit 0,100"
     # sql = "SELECT ip,url,FROM_UNIXTIME(timestamp/1000, '%m-%d %H:%i') as t FROM monitor.records  where FROM_UNIXTIME(timestamp/1000, '%H')>=0 and FROM_UNIXTIME(timestamp/1000, '%H')<6 and  url like '%hunantv.com/v/1%' and flash_load=0 and flash_installed=1 and timestamp>#{time_start} "
     # sql = "select t,count(*) as c from(SELECT ip,url,FROM_UNIXTIME(timestamp/1000, '%H:%i') as t FROM monitor.records  

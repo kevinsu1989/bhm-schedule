@@ -46,11 +46,11 @@ module.exports = (app)->
   require('./router').init(app)
   initBijou app
   if process.env.NODE_ENV is 'production'
-    # _schedule.initSchedule()
+    _schedule.initSchedule()
     _schedule.initMSchedule()
-    # _schedule.initReportSchedule()
-    # _schedule.initPlayerSchedule()
-    # _schedule.initMobileMailSchedule()
+    _schedule.initReportSchedule()
+    _schedule.initPlayerSchedule()
+    _schedule.initMobileMailSchedule()
   else
     console.log "现在的环境是#{process.env.NODE_ENV}, 打开定时任务请使用生产环境--NODE_ENV=production".red
     

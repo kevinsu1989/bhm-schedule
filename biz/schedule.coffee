@@ -86,7 +86,7 @@ exports.initMSchedule = ()->
   rule_day.hour = 2
   rule_day.minute = 30
 
-  rule_hour.minute = 18
+  rule_hour.minute = 2
 
   day = _schedule.scheduleJob rule_day, ()->
     time_start = _moment().subtract(1,'day').startOf('day').valueOf()

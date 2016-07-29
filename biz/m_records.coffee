@@ -75,7 +75,7 @@ exports.calculateRecordsByTime = (timeStart, timeEnd, timeType)->
   for time, index in timeArr
     ((time)->
       setTimeout(()->
-          # calculateByTime time, (err, result)->
+          calculateByTime time, (err, result)->
           calculateBasic time, (err, result)->
       , index * 10 * 1000)
     )(time)
