@@ -6,6 +6,7 @@ _crypto = require 'crypto'
 _events = require 'events'
 _moment = require 'moment'
 _ = require 'lodash'
+_fs = require 'fs-extra'
 
 _util = require 'util'
 _pageEvent = new _events.EventEmitter()
@@ -84,6 +85,20 @@ exports.getDayStart = (date)->
   date = new Date() if !date
   new Date(date.toJSON().split('T')[0]+' 00:00:00')
 
+
+exports.writeFile = (name, file)->
+  time = _moment();
+  path = _config.file.path
+  path_time = _path.join(time.year().toString(), (time.month()+1).toString(), time.date().toString(), time.hour().toString())
+  path = path.replace(':time', path_time)
+  path = path.replace(':name', name)
+
+  result = JSON.parse "[#{file.toString()}]"
+
+  _fs.outputFile path, JSON.stringify(result), ()->
+    setTimeout(()->
+      _request.get "#{_config.wpm.url}?page=#{name}&time=#{time.valueOf()}"
+    ,10000)
 
 exports.getSplitTime = (timeStart, timeEnd, timeType)-> 
   timeArr = []

@@ -21,3 +21,8 @@ module.exports =
     port: 6379
     database: 0
     unique: 'bhf-c63a6d217'
+
+  file:
+    path: '/data/wpm/bhm/:time/:name'
+  wpm:
+    url: 'http://10.100.5.113/action/userPlayer'

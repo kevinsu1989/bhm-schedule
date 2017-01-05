@@ -65,6 +65,7 @@ calculateByTime = (time, page, browser_name, cb)->
       record.browser_name = browser_name if browser_name
       console.log record
       _entity.records_calculated.saveCalculatedRecords [record], (err, result)->
+        _common.writeFile page.page_name, record if !browser_name
         done err, result, time
   )
   # queue.push(
