@@ -97,7 +97,7 @@ exports.writeFile = (name, file)->
 
   _fs.outputFile path, JSON.stringify(result), ()->
     setTimeout(()->
-      _request.get "#{_config.wpm.url}?page=#{name}&time=#{time.valueOf()}"
+      _request.get "#{_config.wpm.url}?page=#{encodeURI(name)}&time=#{time.valueOf()}"
     ,10000)
 
 exports.getSplitTime = (timeStart, timeEnd, timeType)-> 

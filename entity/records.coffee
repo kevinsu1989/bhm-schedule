@@ -25,7 +25,16 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and a.url like '%.com#{data.page_like}%'" if data.page_like
+    if data.page_name is '首页'
+
+      if data.page_like 
+        sql += " and a.url like '%.com#{data.page_like}%'"  
+      else
+        sql += " and a.url = 'http://www.mgtv.com/' "
+
+    else
+      
+      sql += " and a.url like '%.com#{data.page_like}%'" if data.page_like  
 
     sql += " and browser_name='#{data.browser_name}'" if data.browser_name
 
@@ -38,7 +47,7 @@ class Records extends _BaseEntity
   # 查询播放器加载成功率
   getFlashLoadCount: (data, cb)->
     sql = "SELECT flash_load, count(*) as count FROM records where
-    timestamp > #{data.time_start} and timestamp < #{data.time_end} and flash_load in (0,1) and flash_installed <> 0 and cli_version='1.0.13' and refer is not null"
+    timestamp > #{data.time_start} and timestamp < #{data.time_end} and flash_load in (0,1) and flash_installed <> 0 and cli_version='1.0.14' and refer is not null"
 
     sql += " and browser_name='#{data.browser_name}' " if data.browser_name
 
@@ -76,7 +85,16 @@ class Records extends _BaseEntity
 
     sql += " and page_name='#{data.page_name}'" if !data.page_like
 
-    sql += " and url like '%.com#{data.page_like}%'" if data.page_like
+    if data.page_name is '首页'
+
+      if data.page_like 
+        sql += " and url like '%.com#{data.page_like}%'"  
+      else
+        sql += " and url = 'http://www.mgtv.com/' "
+
+    else
+      
+      sql += " and url like '%.com#{data.page_like}%'" if data.page_like  
 
     sql += " and browser_name='#{data.browser_name}'" if data.browser_name
 
