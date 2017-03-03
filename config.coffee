@@ -23,6 +23,6 @@ module.exports =
     unique: 'bhf-c63a6d217'
 
   file:
-    path: '/data/wpm/:time/:name-3'
+    path: '/data/wpm/data/:time/:name-3'
   wpm:
     url: 'http://10.100.5.113/action/userPlayer'
