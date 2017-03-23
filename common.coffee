@@ -100,6 +100,19 @@ exports.writeFile = (name, file)->
       _request.get "#{_config.wpm.url}?page=#{encodeURI(name)}&time=#{time.valueOf()}"
     ,10000)
 
+
+
+
+exports.writePlayerFile = (file)->
+  time = _moment();
+  path = _config.file.player_path
+  path_time = _path.join(time.year().toString(), (time.month()+1).toString(), time.date().toString(), time.hour().toString())
+  path = path.replace(':time', path_time)
+
+  result = JSON.parse "#{JSON.stringify(file)}"
+
+  _fs.outputFile path, JSON.stringify(result), ()->
+
 exports.getSplitTime = (timeStart, timeEnd, timeType)-> 
   timeArr = []
   type = 

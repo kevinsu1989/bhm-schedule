@@ -249,7 +249,7 @@ exports.getRecordsSplit = (req, res, cb)->
           flash_count = result[0].count * 1 + result[1].count * 1 
         else if result.length is 1
           flash_count = result[0].count * 1
-        flash_load = (result[1].count * 1) /flash_count if result.length > 1
+        flash_load = (result[1].count * 1) / flash_count if result.length > 1
         flash_load = 1 if result.length and result[0].flash_load is 1
         done null, records, data
     )

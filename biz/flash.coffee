@@ -25,6 +25,7 @@ calculateByTime = (time, cb)->
   queue.push(
     (result, done)->
       console.log result
+      _common.writePlayerFile result[0]
       _entity.flash_calculated.addRecords result, (err, result)->
         done err, result
   )

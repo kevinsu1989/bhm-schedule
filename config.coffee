@@ -24,5 +24,6 @@ module.exports =
 
   file:
     path: '/data/wpm/data/:time/:name-3'
+    player_path: '/data/wpm/data/:time/player-4'
   wpm:
     url: 'http://10.100.5.113/action/userPlayer'
