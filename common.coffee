@@ -87,7 +87,7 @@ exports.getDayStart = (date)->
 
 
 exports.writeFile = (name, file)->
-  time = _moment();
+  time = _moment(file.time_end + 1);
   path = _config.file.path
   path_time = _path.join(time.year().toString(), (time.month()+1).toString(), time.date().toString(), time.hour().toString())
   path = path.replace(':time', path_time)
@@ -104,7 +104,7 @@ exports.writeFile = (name, file)->
 
 
 exports.writePlayerFile = (file)->
-  time = _moment();
+  time = _moment(file.time_end + 1);
   path = _config.file.player_path
   path_time = _path.join(time.year().toString(), (time.month()+1).toString(), time.date().toString(), time.hour().toString())
   path = path.replace(':time', path_time)
