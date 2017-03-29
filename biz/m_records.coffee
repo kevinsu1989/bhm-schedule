@@ -24,6 +24,7 @@ calculateByTime = (time, cb)->
   queue.push(
     (result, done)->
       console.log result
+      _common.writeMobileFile result[0]
       _entity.m_records_calculated.addRecords result, (err, result)->
         done err, result
   )
@@ -51,7 +52,6 @@ calculateBasic = (time, cb)->
     (result, done)->
       _entity.records_mobile_basic.findPVRecords query, (err, pv)->
         result[0].pv = pv[0].pv
-        _common.writeMobileFile result[0]
         done err, result
   )
 
